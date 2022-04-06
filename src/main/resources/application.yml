@@ -1,0 +1,58 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+    
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/instagramdb
+    username: postgres
+    password: root123
+    
+    # 스프링에서 머스태치 세션 적용하려면 필요
+  mustache:
+    expose-session-attributes: true
+    
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: create
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      use-new-id-generator-mappings: false
+    show-sql: true
+    properties:
+      hibernate.enable_lazy_load_no_trans: true  
+      hibernate.format_sql: true
+      
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 2MB
+
+  security: # test용 security 로그인 아이디, 비밀번호 지정
+    user:
+      name: sarvar7535@gmail.com
+      password: qwerty7535
+      
+    oauth2:
+      client:
+        registration:
+          facebook:
+            client-id: 1007376193197372
+            client-secret: 9939960624489c05027402a0be9fb2ea
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            scope:
+            - email
+            - public_profile
+      
+cos: # like 변수, 자바에서 찾기 쉽게 커스텀
+  secret: qwerty7535
+
+file: # 파일 저장시 경로 
+  path: src/SpringBoot/SpringBoot_instagram/upload
